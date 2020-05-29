@@ -1,4 +1,4 @@
-.container {
+.container-signup {
   width: 100%;
   max-width: 1120px;
   height: 100vh;
@@ -8,7 +8,7 @@
   justify-content: center;
 }
 
-.container .content {
+.container-signup .content-signup {
   width: 100%;
   padding: 96px;
   background: #FCFCFD;
@@ -19,32 +19,32 @@
   align-items: center;
 }
 
-.container .content section {
+.container-signup .content-signup section {
   width: 100%;
   max-width: 380px;
 }
 
-.container .content section h1 {
+.container-signup .content-signup section h1 {
   margin: 0px 0 12px;
   font-size: 32px;
 }
 
-.container .content section p {
+.container-signup .content-signup section p {
   font-size: 18px;
   color: #737380;
   line-height: 32px;
 }
 
-.container .content form {
+.container-signup .content-signup form {
   width: 100%;
   max-width: 450px;
 }
 
-.container .content form input {
+.container-signup .content-signup form input {
   margin-top: 8px;
 }
 
-.container .content form p {
+.container-signup .content-signup form p {
   color: #ff3333;
   margin-top: 10px;
   margin-bottom: 15px;

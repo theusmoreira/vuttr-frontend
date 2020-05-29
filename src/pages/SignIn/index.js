@@ -35,8 +35,8 @@ class SignIn extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="content">
+      <div className="container-signin">
+        <div className="content-signin">
           <section className='form'>
             <form onSubmit={this.handleSignIn}>
               <h1>Sign In</h1>

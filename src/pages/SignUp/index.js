@@ -34,12 +34,12 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="content">
+      <div className="container-signup">
+        <div className="content-signup">
           <section>
             <h1>Cadastro</h1>
             <p>Faça seu cadastro e sempre se lembre da suas ferramentas mais usadas</p>
-            <Link className='back-link' to='/signin'>
+            <Link className='back-link' to='/'>
               <FaChevronLeft size={25} color='#170C3A' />
               <span>Fazer login</span>
             </Link>
