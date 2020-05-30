@@ -1,57 +1,57 @@
 import React, { useState, useEffect } from 'react';
 
-import { FaSearch, FaSignOutAlt } from 'react-icons/fa'
+import { FaSearch, FaSignOutAlt, FaTimes } from 'react-icons/fa'
 
 import api from '../../services/api';
-import { logout } from '../../services/auth';
 
 import './styles.css';
 
 function Session() {
   const [tools, setTools] = useState([]);
-  const [searchTool, setSearchToll] = useState('');
 
+  async function fetchTools() {
+    const response = await api.get('tools');
+    setTools(response.data);
+  }
+  console.log(tools)
 
   useEffect(() => {
-    async function loadTools() {
-      const response = await api.get('tools');
-      setTools(response.data);
-    }
-    async function searchToollResquest() {
-      const response = await api.get(`tools?tag=${searchTool}`)
-      setSearchToll(response)
-    }
-    searchToollResquest();
-    loadTools();
-  });
+    fetchTools()
+  }, []);
+
 
   return (
     <div className="container-session">
       <div className="content-session">
         <section>
-          <div className="header">
-            <h1>VUTTR</h1>
-            <p>Very Useful To Remember</p>
-            <FaSignOutAlt  onClick={logout()} className='logout-svg' alt='Logout icon' />
+          <div className="header-session">
+            <div className="title-session">
+              <h1>VUTTR</h1>
+              <p>Very Useful To Remember</p>
+            </div>
+            <button>
+              <FaSignOutAlt alt='Logout icon' />
+            </button>
           </div>
           <div className="search-container">
-            <FaSearch className='search-svg' size={25} alt='Search Icon' />
-            <input
-              type='text'
-              placeholder='Fazer busca'
-              onChange={e => setSearchToll(e.target.value)}
-            />
-            <div className='checkbox-container'>
+            <div className="input-checkbox">
+              <FaSearch className='search-svg' size={25} alt='Search Icon' />
               <input
-                type="checkbox"
-                id='checkbox-tag'
+                type='text'
+                placeholder='Fazer busca'
               />
+              <div className='checkbox-container'>
+                <input
+                  type="checkbox"
+                  id='checkbox-tag'
+                />
 
-              <label
-                className='label-container'
-                htmlFor="checkbox-tah"
-              >search in tags only
+                <label
+                  className='label-container'
+                  htmlFor="checkbox-tah"
+                >search in tags only
                 </label>
+              </div>
             </div>
             <button>+Add</button>
           </div>
@@ -59,12 +59,19 @@ function Session() {
             <ul>
               {tools.map(tool => (
                 <li key={tool._id}>
-                  <h3>
-                    <a href={tool.link}>
-                      {tool.link}
+                  <div className="headerList">
+                    <a
+                      href={tool.link}
+                      rel="noopener noreferrer"
+                      target="_blank">
+                      <h3>{tool.title}</h3>
                     </a>
-                  </h3>
-                  <span>{tool.description}</span>
+                    <button>
+                      <FaTimes />
+                    remove
+                  </button>
+                  </div>
+                  <p className="description" >{tool.description}</p>
                   <p>{tool.tags.map(tags => (<i key={tags[0]}>#{tags} </i>))}</p>
                 </li>
               ))}
