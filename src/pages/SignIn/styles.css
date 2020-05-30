@@ -20,10 +20,8 @@
 }
 .container-signin .content-signin form p {
   color: #ff3333;
-  margin: 0px;
-  margin-top: 10px;
+  margin-bottom: 15px;
   border: 1px solid #ff3333;
-  padding: 0px;
   width: 100%;
   text-align: center;
 }
