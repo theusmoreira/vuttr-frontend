@@ -18,7 +18,7 @@ function SignIn() {
     e.preventDefault();
 
     if (!email || !password) {
-      setError('Preencha e-mail e senha para continuar!');
+      setError('Fill in email and password to continue!');
     } else {
       try {
         const response = await api.post('/login', {
@@ -31,7 +31,7 @@ function SignIn() {
         history.push('/tools');
 
       } catch (error) {
-        setError('Houve um problema com o login, verifique suas credenciais.');
+        setError('There was a problem with the login, check your credentials.');
       }
     }
   };
@@ -45,20 +45,20 @@ function SignIn() {
             {error && <p>{error}</p>}
             <input
               type='email'
-              placeholder='Seu Email'
+              placeholder='Email'
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
             <input
               type='password'
-              placeholder='Senha'
+              placeholder='Password'
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
-            <button className='button' type='submit'>Entrar</button>
+            <button className='button' type='submit'>Sign In</button>
             <Link className="back-link" to="/signup">
               <FaChevronRight size={16} color='#170C3A' />
-              <span>Não tenho cadastro</span>
+              <span>I don't have a registration</span>
             </Link>
           </form>
         </section>

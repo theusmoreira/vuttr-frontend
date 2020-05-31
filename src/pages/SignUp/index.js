@@ -19,14 +19,14 @@ function SignUp() {
     e.preventDefault();
 
     if (!name || !email || !password) {
-      setError('Preencha todos os dados para se cadastrar');
+      setError('Fill in all the data to register');
     } else {
       try {
         const response = await api.post('users', { name, email, password });
         login(response.data.token);
         history.push('/tools');
       } catch (error) {
-        setError('Ocorreu um erro ao registrar sua conta. :-/');
+        setError('There was an error registering your account. :-/');
       }
     }
   }
@@ -36,17 +36,17 @@ function SignUp() {
     <div className="container-signup">
       <div className="content-signup">
         <section>
-          <h1>Cadastro</h1>
-          <p>Faça seu cadastro e sempre se lembre da suas ferramentas mais usadas</p>
+          <h1>Register</h1>
+          <p>Make your registration and always remember your most used tools</p>
           <Link className='back-link' to='/'>
             <FaChevronLeft size={25} color='#170C3A' />
-            <span>Fazer login</span>
+            <span>Sign In</span>
           </Link>
 
           <form onSubmit={handleRegister}>
             {error && <p>{error}</p>}
             <input
-              placeholder='Seu nome'
+              placeholder='Your name'
               value={name}
               onChange={e => setName(e.target.value)}
             />
@@ -57,12 +57,12 @@ function SignUp() {
               onChange={e => setEmail(e.target.value)}
             />
             <input
-              placeholder='Senha'
+              placeholder='Password'
               type='password'
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
-            <button className='button' type='submit'>Cadastrar</button>
+            <button className='button' type='submit'>Register</button>
           </form>
         </section>
       </div>
