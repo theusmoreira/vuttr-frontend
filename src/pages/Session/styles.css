@@ -64,7 +64,6 @@
   padding: 4px;
   padding-left: 35px;
   height: 40px;
-  width: 215px;
   border: 1px solid #ebeaed;
   border-radius: 5px;
   font-size: 16px;
@@ -95,12 +94,11 @@
 
 .checkbox-container input[type="checkbox"] {
   margin-left: 8px;
-  width: 10%;
 }
 
 .checkbox-container .label-container {
   font-size: 17px;
-  margin-left: 17px;
+  margin-left: 7px;
   color: #41414d;
 }
 
