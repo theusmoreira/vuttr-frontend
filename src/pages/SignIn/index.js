@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa'
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 import { login } from '../../services/auth';
@@ -12,19 +12,26 @@ function SignIn() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSignIn = async e => {
+  const history = useHistory();
+
+  const handleSignIn = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
       setError('Preencha e-mail e senha para continuar!');
     } else {
       try {
-        const response = await api.post('/login', { email, password });
+        const response = await api.post('/login', {
+          email,
+          password
+        });
+
         login(response.data.token);
-        this.props.history.push('/tools');
+
+        history.push('/tools');
+
       } catch (error) {
-        setError('Houve um problema com o login, verifique suas credenciais.'
-        );
+        setError('Houve um problema com o login, verifique suas credenciais.');
       }
     }
   };
@@ -39,12 +46,14 @@ function SignIn() {
             <input
               type='email'
               placeholder='Seu Email'
-              onChange={e => setEmail({ email: e.target.value })}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
             <input
               type='password'
               placeholder='Senha'
-              onChange={e => setPassword({ password: e.target.value })}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
             <button className='button' type='submit'>Entrar</button>
             <Link className="back-link" to="/signup">
