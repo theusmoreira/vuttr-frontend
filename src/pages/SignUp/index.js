@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import { FaChevronLeft } from 'react-icons/fa'
 
 import api from '../../services/api';
@@ -13,6 +13,8 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const history = useHistory();
+
   const handleRegister = async e => {
     e.preventDefault();
 
@@ -22,10 +24,8 @@ function SignUp() {
       try {
         const response = await api.post('users', { name, email, password });
         login(response.data.token);
-        console.log(response.data.token)
-        this.props.history.push('/tools');
+        history.push('/tools');
       } catch (error) {
-        console.log(error);
         setError('Ocorreu um erro ao registrar sua conta. :-/');
       }
     }
@@ -47,16 +47,20 @@ function SignUp() {
             {error && <p>{error}</p>}
             <input
               placeholder='Seu nome'
-              onChange={e => setName({ name: e.target.value })}
+              value={name}
+              onChange={e => setName(e.target.value)}
             />
             <input
               placeholder='Email'
-              onChange={e => setEmail({ email: e.target.value })}
+              type='email'
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
             <input
               placeholder='Senha'
               type='password'
-              onChange={e => setPassword({ password: e.target.value })}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
             <button className='button' type='submit'>Cadastrar</button>
           </form>
