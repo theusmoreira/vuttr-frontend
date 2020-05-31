@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FaSearch, FaSignOutAlt, FaTimes } from 'react-icons/fa';
 
+import ModalAdd from '../../components/ModalAdd';
+
 import api from '../../services/api';
 import { logout } from '../../services/auth';
 
@@ -9,6 +11,7 @@ import './styles.css';
 
 function Session() {
   const [tools, setTools] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const history = useHistory();
 
@@ -35,8 +38,13 @@ function Session() {
     }
   }
 
+  function openModal() {
+    setIsModalVisible(true)
+  }
+
   return (
     <div className="container-session">
+      {isModalVisible ? <ModalAdd /> : null}
       <div className="content-session">
         <section>
           <div className="header-session">
@@ -63,12 +71,12 @@ function Session() {
 
                 <label
                   className='label-container'
-                  htmlFor="checkbox-tah"
+                  htmlFor="checkbox-tag"
                 >search in tags only
                 </label>
               </div>
             </div>
-            <button>+Add</button>
+            <button onClick={openModal} >+Add</button>
           </div>
           <div className="list-content">
             <ul>
@@ -81,7 +89,7 @@ function Session() {
                       target="_blank">
                       <h3>{tool.title}</h3>
                     </a>
-                    <button  onClick={() => hanldeRemoveTool(tool._id)} >
+                    <button onClick={() => hanldeRemoveTool(tool._id)} >
                       <FaTimes />
                     remove
                   </button>
