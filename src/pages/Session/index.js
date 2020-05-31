@@ -1,24 +1,39 @@
 import React, { useState, useEffect } from 'react';
-
-import { FaSearch, FaSignOutAlt, FaTimes } from 'react-icons/fa'
+import { useHistory } from 'react-router-dom';
+import { FaSearch, FaSignOutAlt, FaTimes } from 'react-icons/fa';
 
 import api from '../../services/api';
+import { logout } from '../../services/auth';
 
 import './styles.css';
 
 function Session() {
   const [tools, setTools] = useState([]);
 
+  const history = useHistory();
+
   async function fetchTools() {
     const response = await api.get('tools');
     setTools(response.data);
-  }
-  console.log(tools)
+  };
 
   useEffect(() => {
     fetchTools()
   }, []);
 
+  const handleLogout = () => {
+    logout();
+    history.push('/signin');
+  };
+
+  async function hanldeRemoveTool(id) {
+    try {
+      await api.delete(`tools/${id}`);
+      setTools(tools.filter(tool => tool._id !== id))
+    } catch (err) {
+      alert('Erro ao remover tool')
+    }
+  }
 
   return (
     <div className="container-session">
@@ -29,7 +44,7 @@ function Session() {
               <h1>VUTTR</h1>
               <p>Very Useful To Remember</p>
             </div>
-            <button>
+            <button onClick={handleLogout}>
               <FaSignOutAlt alt='Logout icon' />
             </button>
           </div>
@@ -66,13 +81,13 @@ function Session() {
                       target="_blank">
                       <h3>{tool.title}</h3>
                     </a>
-                    <button>
+                    <button  onClick={() => hanldeRemoveTool(tool._id)} >
                       <FaTimes />
                     remove
                   </button>
                   </div>
                   <p className="description" >{tool.description}</p>
-                  <p>{tool.tags.map(tags => (<i key={tags[0]}>#{tags} </i>))}</p>
+                  <p>{tool.tags.map((tag, index) => (<i key={index}>#{tag} </i>))}</p>
                 </li>
               ))}
             </ul>
