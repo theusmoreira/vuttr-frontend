@@ -13,14 +13,17 @@ body {
   
 }
 input,
-button {
+button,
+textarea,
+label {
   font: 400 18px Source sans pro, sans-serif;
 }
 
 button {
   cursor: pointer;
 }
-form input {
+form input, 
+textarea {
   width: 100%;
   margin-bottom: 10px;
   height: 60px;
