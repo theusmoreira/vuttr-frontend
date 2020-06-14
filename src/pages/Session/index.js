@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FaSearch, FaSignOutAlt, FaTimes } from 'react-icons/fa';
 
-import ModalAdd from '../../components/ModalAdd';
+import ModalAddTool from '../../components/ModalAddTool';
+import ModalRemoveTool from '../../components/ModalRemoveTool';
 
 import api from '../../services/api';
 import { logout } from '../../services/auth';
@@ -11,20 +12,46 @@ import './styles.css';
 
 function Session() {
   const [tools, setTools] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [toolId, setToolId] = useState('');
+  const [toolName, setToolName] = useState('');
+
+  const [checkedBox, setCheckedBox] = useState(false);
+  const [toolTagName, setToolTagName] = useState('');
+
+
+  const [addToolModal, setAddToolModal] = useState(false);
+  const [removeToolModal, setRemoveToolModal] = useState(false);
 
   const history = useHistory();
 
+
   async function fetchTools() {
-    const response = await api.get('tools');
+    const response = await api.get();
     setTools(response.data);
   };
 
   useEffect(() => {
-    fetchTools()
+    fetchTools();
   }, []);
 
-  const handleLogout = () => {
+  useEffect(() => {
+    async function fetchToolsTagName() {
+      if (checkedBox === true && toolTagName) {
+        const response = await api.get('tools', {
+          params: {
+            tag: toolTagName
+          }
+        });
+        setTools(response.data);
+      } else {
+        fetchTools()
+      }
+    }
+    fetchToolsTagName();
+  }, [checkedBox, toolTagName]);
+
+  function handleLogout() {
     logout();
     history.push('/signin');
   };
@@ -32,19 +59,42 @@ function Session() {
   async function hanldeRemoveTool(id) {
     try {
       await api.delete(`tools/${id}`);
-      setTools(tools.filter(tool => tool._id !== id))
+      setTools(tools.filter(tool => tool._id !== id));
     } catch (err) {
-      alert('Erro ao remover tool')
+      alert('Erro ao remover tool');
     }
-  }
+  };
 
   function openModal() {
-    setIsModalVisible(true)
-  }
+    setAddToolModal(true)
+  };
+
+  function closeModal() {
+    setAddToolModal(false)
+  };
+
+  function openRemoveToolModal(id, name) {
+    setToolId(id);
+    setToolName(name);
+    setRemoveToolModal(true)
+  };
+
+  function closeRemoveToolModal() {
+    setRemoveToolModal(false)
+  };
+
 
   return (
     <div className="container-session">
-      {isModalVisible ? <ModalAdd /> : null}
+      {addToolModal ? <ModalAddTool
+        onClose={() => closeModal()}
+        fetchTools={() => fetchTools()}
+      /> : null}
+      {removeToolModal ? <ModalRemoveTool
+        onClose={() => closeRemoveToolModal()}
+        onRemoveTool={hanldeRemoveTool}
+        getNameAndId={{ toolId, toolName }}
+      /> : null}
       <div className="content-session">
         <section>
           <div className="header-session">
@@ -52,7 +102,7 @@ function Session() {
               <h1>VUTTR</h1>
               <p>Very Useful To Remember</p>
             </div>
-            <button onClick={handleLogout}>
+            <button onClick={() => handleLogout()}>
               <FaSignOutAlt alt='Logout icon' />
             </button>
           </div>
@@ -62,9 +112,13 @@ function Session() {
               <input
                 type='text'
                 placeholder='Fazer busca'
+                value={toolTagName}
+                onChange={e => setToolTagName(e.target.value)}
               />
               <div className='checkbox-container'>
                 <input
+                  defaultChecked={checkedBox}
+                  onChange={e => setCheckedBox(e.target.checked)}
                   type="checkbox"
                   id='checkbox-tag'
                 />
@@ -76,7 +130,7 @@ function Session() {
                 </label>
               </div>
             </div>
-            <button onClick={openModal} >+Add</button>
+            <button onClick={() => openModal()} >+Add</button>
           </div>
           <div className="list-content">
             <ul>
@@ -89,13 +143,17 @@ function Session() {
                       target="_blank">
                       <h3>{tool.title}</h3>
                     </a>
-                    <button onClick={() => hanldeRemoveTool(tool._id)} >
+                    <button onClick={() => openRemoveToolModal(tool._id, tool.title)} >
                       <FaTimes />
                     remove
                   </button>
                   </div>
                   <p className="description" >{tool.description}</p>
-                  <p>{tool.tags.map((tag, index) => (<i key={index}>#{tag} </i>))}</p>
+                  <div className="tags">
+                    {tool.tags.map((tag, index) => (
+                      <p className={checkedBox && toolTagName === tag ? 'selected' : ''} key={index}> #{tag}</p>
+                    ))}
+                  </div>
                 </li>
               ))}
             </ul>
