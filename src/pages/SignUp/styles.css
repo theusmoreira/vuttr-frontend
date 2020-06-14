@@ -11,8 +11,6 @@
 .container-signup .content-signup {
   width: 100%;
   padding: 96px;
-  background: #FCFCFD;
-  border: 1px solid #EBEAED;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -40,14 +38,9 @@
   max-width: 450px;
 }
 
-.container-signup .content-signup form input {
-  margin-top: 8px;
-}
-
 .container-signup .content-signup form p {
   color: #ff3333;
-  margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
   border: 1px solid #ff3333;
   padding: 10px;
   width: 100%;
