@@ -1,0 +1,23 @@
+.container {
+  background-color: #FCFCFD;
+  color: #000;
+  width: 50%;
+  border-radius: 5px;
+  padding: 24px;
+}
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-group .button {
+  width: 128px;
+  height: 40px;
+  margin-top: 16px;
+  line-height: 40px;
+  transition: filter 0.2s;
+}
+
+.btn-group .button + .button {
+  margin-left: 8px;
+}
