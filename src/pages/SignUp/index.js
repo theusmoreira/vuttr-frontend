@@ -38,10 +38,6 @@ function SignUp() {
         <section>
           <h1>Register</h1>
           <p>Make your registration and always remember your most used tools</p>
-          <Link className='back-link' to='/'>
-            <FaChevronLeft size={25} color='#170C3A' />
-            <span>Sign In</span>
-          </Link>
 
           <form onSubmit={handleRegister}>
             {error && <p>{error}</p>}
@@ -63,6 +59,10 @@ function SignUp() {
               onChange={e => setPassword(e.target.value)}
             />
             <button className='button' type='submit'>Register</button>
+            <Link className='back-link' to='/'>
+              <FaChevronLeft size={25} color='#170C3A' />
+              <span>Sign In</span>
+            </Link>
           </form>
         </section>
       </div>
