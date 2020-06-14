@@ -37,9 +37,9 @@
 }
 
 .header-session {
- display: flex;
- justify-content: space-between;
- align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-session button {
@@ -111,7 +111,7 @@
 }
 
 .list-content ul {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 .list-content .headerList {
@@ -141,9 +141,27 @@
   font-size: 24px;
 }
 
-
 .list-content ul li .description {
   margin: 0;
   color: #737380;
   font-size: 18px;
+}
+
+.list-content ul li .tags {
+  display: flex;
+}
+
+.list-content ul li .tags p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+.list-content ul li .tags p + p {
+  margin-left: 10px;
+}
+
+.list-content ul li .selected {
+  background-color: #FFDDA1;
+  padding: 0 5px;
 }
