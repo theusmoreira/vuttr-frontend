@@ -11,25 +11,23 @@
 .container-signin .content-signin {
   width: 100%;
   padding: 96px;
-  background: #FCFCFD;
-  border: 1px solid #EBEAED;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.container-signin .content-signin form p {
-  color: #ff3333;
-  margin-bottom: 15px;
-  border: 1px solid #ff3333;
-  width: 100%;
-  text-align: center;
-}
 
 .container-signin section.form {
   width: 100%;
   max-width: 350px;
-  margin-right: 30px;
+}
+
+.container-signin .content-signin form p {
+  color: #ff3333;
+  margin-bottom: 16px;
+  border: 1px solid #ff3333;
+  width: 100%;
+  text-align: center;
 }
 
 .container-signin section.form form {
@@ -38,5 +36,5 @@
 
 .container-signin section.form form h1 {
   font-size: 32px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
